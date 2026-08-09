@@ -6,11 +6,8 @@
     <RootNamespace>BetterFlyCam</RootNamespace>
     <LangVersion>latest</LangVersion>
 
-    <!-- CHANGE THIS to your actual game install folder, e.g.
-         C:\Program Files (x86)\Steam\steamapps\common\A Township Tale -->
     <GamePath>D:\A Township Tale</GamePath>
  
-  <!--Add all needed references here-->
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MelonLoader">

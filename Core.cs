@@ -53,17 +53,5 @@ namespace BetterFlyCam
             camSpeed += mWheelDelta * scrollMultiplier;
             camSpeed = Mathf.Clamp(camSpeed, 2f, 100f);
         }
-
-        // Other lifecycle hooks that exist if you need them later:
-
-        // public override void OnSceneWasLoaded(int buildIndex, string sceneName)
-        // {
-        //     LoggerInstance.Msg($"Scene loaded: {sceneName}");
-        // }
-
-        // public override void OnApplicationQuit()
-        // {
-        //     // clean up here if your mod holds any open resources
-        // }
     }
 }
