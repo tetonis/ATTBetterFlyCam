@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using System;
 
-[assembly: MelonInfo(typeof(BetterFlyCam.Core), "BetterFlyCam", "0.1.0", "Tetonis")]
+[assembly: MelonInfo(typeof(BetterFlyCam.Core), "BetterFlyCam", "0.9.0", "Tetonis")]
 
 [assembly: MelonGame("Alta", "A Township Tale")]
 
