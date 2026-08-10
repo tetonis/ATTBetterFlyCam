@@ -34,4 +34,15 @@ namespace BetterFlyCam
         }
         
     }
+
+    [HarmonyPatch(typeof(FlyCamPlayer), "IsCinematicMovement")]
+    [HarmonyPatch(MethodType.Getter)]
+    public static class CinematicCameraPath
+    {
+        static bool Prefix(ref bool __result)
+        {
+            __result = Core.cinematicCamera;
+            return false;
+        }
+    }
 }

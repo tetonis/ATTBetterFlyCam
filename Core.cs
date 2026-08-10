@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using System;
 
-[assembly: MelonInfo(typeof(BetterFlyCam.Core), "BetterFlyCam", "0.9.0", "Tetonis")]
+[assembly: MelonInfo(typeof(BetterFlyCam.Core), "BetterFlyCam", "0.9.1", "Tetonis")]
 
 [assembly: MelonGame("Alta", "A Township Tale")]
 
@@ -23,6 +23,7 @@ namespace BetterFlyCam
 
         public static float sensitivity = 45f;
         public static float camSpeed = 10f;
+        public static bool cinematicCamera = false;
         float scrollMultiplier = 0.1f;
         float sensitivityChangeSpeedMultiplier = 40f;
 
@@ -40,6 +41,10 @@ namespace BetterFlyCam
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
                 }
+            }
+            if (InputHelper.GetKeyUp(Key.C))
+            {
+                cinematicCamera = !cinematicCamera;
             }
             if (InputHelper.GetKey(Key.Equals))
             {
