@@ -1,5 +1,6 @@
 # ATTBetterFlyCam
 Improves the default FlyCam functionality.
+NOT AI GENERATED.
 
 Features:
 - Increase/Decrease camera sensitivity by holding down +/- keys.

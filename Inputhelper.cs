@@ -1,45 +1,38 @@
-﻿using System.Reflection;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 
 public static class InputHelper
 {
-    private static readonly PropertyInfo CurrentStateProperty =
-        typeof(KeyControl).GetProperty(
-            "isPressed",
-            BindingFlags.Instance |
-            BindingFlags.Public |
-            BindingFlags.NonPublic);
-
+    //Credit to shadow for saving me 3 minutes
     public static bool GetKey(Key key)
     {
-        if (Keyboard.current == null)
-            return false;
-
-        KeyControl control = Keyboard.current[key];
-
-        if (control == null)
-            return false;
-
-        if (CurrentStateProperty != null)
-            return (bool)CurrentStateProperty.GetValue(control);
-
-        return control.isPressed;
+        return Keyboard.current != null && Keyboard.current[key].isPressed;
     }
 
     public static bool GetKeyDown(Key key)
     {
-        if (Keyboard.current == null)
-            return false;
-
-        return Keyboard.current[key].wasPressedThisFrame;
+        return Keyboard.current != null && Keyboard.current[key].wasPressedThisFrame;
     }
 
     public static bool GetKeyUp(Key key)
     {
-        if (Keyboard.current == null)
-            return false;
+        return Keyboard.current != null && Keyboard.current[key].wasReleasedThisFrame;
+    }
 
-        return Keyboard.current[key].wasReleasedThisFrame;
+    public static bool GetMouseLockState()
+    {
+        return Cursor.lockState == CursorLockMode.Locked;
+    }
+
+    public static void SetMouseLockState(bool lockState)
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        if (lockState)
+        {
+            //You ain't goin nowhere
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 }

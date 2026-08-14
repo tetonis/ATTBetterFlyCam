@@ -4,10 +4,10 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using System;
 
-[assembly: MelonInfo(typeof(BetterFlyCam.Core), "BetterFlyCam", "0.9.1", "Tetonis")]
-
+[assembly: MelonInfo(typeof(BetterFlyCam.Core), "BetterFlyCam", "0.9.2", "Tetonis")]
 [assembly: MelonGame("Alta", "A Township Tale")]
 
+//TS NOT AI TWIN!
 namespace BetterFlyCam
 {
 
@@ -16,7 +16,6 @@ namespace BetterFlyCam
         public override void OnInitializeMelon()
         {
             LoggerInstance.Msg("BetterFlyCam initialized.");
-
             
             HarmonyInstance.PatchAll();
         }
@@ -25,27 +24,30 @@ namespace BetterFlyCam
         public static float camSpeed = 10f;
         public static bool cinematicCamera = false;
         float scrollMultiplier = 0.1f;
-        float sensitivityChangeSpeedMultiplier = 40f;
+        float sensitivityChangeSpeedMultiplier = 50f;
 
+        //My child will put all code in the main function
         public override void OnUpdate()
         {
-            if (InputHelper.GetKeyUp(UnityEngine.InputSystem.Key.LeftAlt))
+            //Toggle mouse lock so you can actually use menus
+            if (InputHelper.GetKeyUp(Key.LeftAlt))
             {
-                if (Cursor.lockState == CursorLockMode.Locked)
+                if (InputHelper.GetMouseLockState() == true)
                 {
-                    Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
+                    InputHelper.SetMouseLockState(false);
                 }
-                else if (Cursor.lockState == CursorLockMode.None || Cursor.lockState == CursorLockMode.Confined)
+                else
                 {
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
+                    InputHelper.SetMouseLockState(true);
                 }
             }
+
             if (InputHelper.GetKeyUp(Key.C))
             {
                 cinematicCamera = !cinematicCamera;
             }
+
+            //Change mouse sens over time while key is held
             if (InputHelper.GetKey(Key.Equals))
             {
                 sensitivity += Time.deltaTime * sensitivityChangeSpeedMultiplier;
@@ -53,7 +55,10 @@ namespace BetterFlyCam
             if (InputHelper.GetKey(Key.Minus)){
                 sensitivity -= Time.deltaTime * sensitivityChangeSpeedMultiplier;
             }
+
+            //Let's not get too crazy
             sensitivity = Mathf.Clamp(sensitivity, 10f, 1024f);
+
             float mWheelDelta = Mouse.current.scroll.ReadValue().y;
             camSpeed += mWheelDelta * scrollMultiplier;
             camSpeed = Mathf.Clamp(camSpeed, 2f, 100f);

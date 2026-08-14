@@ -12,7 +12,9 @@ namespace BetterFlyCam
     {
         static bool Prefix(ref float __result)
         {
-            if (Cursor.lockState != CursorLockMode.Locked)
+            //Makes camera stop moving when cursor is free
+            //Even works with Unity Explorer!
+            if (InputHelper.GetMouseLockState() == false)
             {
                 __result = 0f;
             }
