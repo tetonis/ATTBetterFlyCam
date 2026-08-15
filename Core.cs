@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using System;
 
-[assembly: MelonInfo(typeof(BetterFlyCam.Core), "BetterFlyCam", "0.9.3", "Tetonis")]
+[assembly: MelonInfo(typeof(BetterFlyCam.Core), "BetterFlyCam", "0.9.4", "Tetonis")]
 [assembly: MelonGame("Alta", "A Township Tale")]
 
 //TS NOT AI TWIN!
@@ -25,8 +25,13 @@ namespace BetterFlyCam
         float scrollMultiplier = 0.1f;
         float sensitivityChangeSpeedMultiplier = 50f;
 
+
         public override void OnInitializeMelon()
         {
+            if (ApplicationManager.IsHeadless)
+            {
+                return;
+            }
             camCfg = MelonPreferences.CreateCategory("BetterFlyCam", "Preferences");
             cfgCameraSensitivity = camCfg.CreateEntry("Camera Sensitivity", 45f, description: "The current camera sensitivity (default 45)");
             cfgDefaultSpeed = camCfg.CreateEntry("Default Speed", 10f, description: "The default camera move speed (default 10)");
@@ -47,12 +52,20 @@ namespace BetterFlyCam
 
         public override void OnDeinitializeMelon()
         {
+            if (ApplicationManager.IsHeadless)
+            {
+                return;
+            }
             MelonPreferences.Save();
         }
 
         //My child will put all code in the main function
         public override void OnUpdate()
         {
+            if (ApplicationManager.IsHeadless)
+            {
+                return;
+            }
             //Toggle mouse lock so you can actually use menus
             if (InputHelper.GetKeyUp(Key.LeftAlt))
             {
